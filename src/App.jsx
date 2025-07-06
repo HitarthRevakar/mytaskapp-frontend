@@ -124,7 +124,6 @@ function gettasks(){
                 value={task}
                 onChange={(e) => setTask(e.target.value)}
                 placeholder="Details..."
-                maxLength={255}
               ></textarea>
               <div className="modal-buttons">
                 <button onClick={handleSubmit}>
