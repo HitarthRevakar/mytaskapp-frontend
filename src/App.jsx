@@ -19,12 +19,14 @@ function App() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
+  // ------------- api call ------------- //
+  const API = import.meta.env.VITE_API_URL;
   const colors = [
     { bg: "#F2FDFF", line: "#208597" },
     { bg: "#F4F1FF", line: "#7965C0" },
   ];
 function gettasks(){
-  axios.get("http://localhost:3000/")
+  axios.get(`${API}/`)
       .then((res) => setTasks(()=>res.data))
       .catch((err) => console.error("Fetch error:", err));
 }
@@ -38,7 +40,7 @@ function gettasks(){
     if (!task.trim()) return;
 
     if (isEditing) {
-      axios.put(`http://localhost:3000/${editId}`, { title: task })
+      axios.put(`${API}/${editId}`, { title: task })
         .then((res) => {
           const updated = tasks.map((t) =>
             t.id === editId ? res.data[0] : t
@@ -48,7 +50,7 @@ function gettasks(){
           gettasks()
         });
     } else {
-      axios.post("http://localhost:3000/", { title: task })
+      axios.post(`${API}/`, { title: task })
         .then((res) => {
           setTasks([...tasks, res.data[0]]);
           resetForm();
@@ -78,7 +80,7 @@ function gettasks(){
   };
 
   const confirmDelete = () => {
-    axios.delete(`http://localhost:3000/${deleteId}`)
+    axios.delete(`${API}/${deleteId}`)
       .then(() => {
         setTasks(tasks.filter((task) => task.id !== deleteId));
         setDeleteId(null);
