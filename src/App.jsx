@@ -33,6 +33,7 @@ function gettasks(){
   // READ - Get all todos
   useEffect(() => {
     gettasks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // CREATE or UPDATE task
