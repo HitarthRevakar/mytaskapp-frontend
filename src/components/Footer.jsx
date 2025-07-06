@@ -4,9 +4,11 @@ import { FaRegCopyright } from "react-icons/fa6";
 const Footer = () => {
   return (
     <>
-        <div className="footer">
-            <p><FaRegCopyright />&nbsp; Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-        </div>
+      <div className="footer">
+        <p>
+          <FaRegCopyright />&nbsp; {new Date().getFullYear()} TaskFlow — All rights reserved.
+        </p>
+      </div>
     </>
   )
 }

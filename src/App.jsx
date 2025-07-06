@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useState, useEffect } from "react";
 import { MdDelete} from "react-icons/md";
 // import { AiFillDelete } from "react-icons/ai";
@@ -20,7 +21,13 @@ function App() {
   const [deleteId, setDeleteId] = useState(null);
 
   // ------------- api call ------------- //
-  const API = import.meta.env.VITE_API_URL;
+const API =
+  window.location.hostname === "localhost"
+    ? import.meta.env.VITE_API_URL_LOCAL
+    : import.meta.env.VITE_API_URL_PRO;
+
+
+  
   const colors = [
     { bg: "#F2FDFF", line: "#208597" },
     { bg: "#F4F1FF", line: "#7965C0" },
