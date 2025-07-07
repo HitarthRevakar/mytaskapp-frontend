@@ -124,7 +124,7 @@ function App() {
           </button>
         </div>
 
-        {tasks.length > 2 && (
+        {tasks.length > 5 && (
           <div className="clear-all-container">
             <button className="clear-all-btn" onClick={() => setShowClearAllModal(true)}>
               <MdDelete className="add-icon" /> Clear All Tasks
