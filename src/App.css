@@ -292,9 +292,116 @@ body {
   width: 100%;
 }
 
-.add-icon{
+.add-icon {
   font-size: 1.6rem;
 }
+
+.clear-all-container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 2rem;
+  margin: 1.5rem 0;
+}
+
+.clear-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ff4444;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
+  transition: all 0.2s ease;
+  min-height: 44px;
+  /* Better touch target */
+  position: relative;
+  overflow: hidden;
+}
+
+.clear-all-btn:hover {
+  background-color: #e63946;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
+}
+
+.clear-all-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 68, 68, 0.3);
+}
+
+.clear-all-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.3);
+}
+
+.clear-all-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Optional: Add a subtle animation */
+.clear-all-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.clear-all-btn:hover::before {
+  left: 100%;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .clear-all-container {
+    padding: 0 1rem;
+  }
+
+  .clear-all-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .clear-all-icon {
+    font-size: 16px;
+  }
+}
+
+.modal.delete-modal {
+  padding: 2rem;
+  max-width: 450px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-buttons.delete-btn-modal {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.delete-icon img {
+  width: 48px;
+  height: 48px;
+}
+
+.delete-btn-modal .delete {
+  background-color: #e53935;
+  color: white;
+}
+
 
 /* Desktop - 4 cards per row */
 @media (min-width: 1200px) {

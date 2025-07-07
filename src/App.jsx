@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { useState, useEffect } from "react";
-import { MdDelete} from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 // import { AiFillDelete } from "react-icons/ai";
 import { IoAdd } from "react-icons/io5";
 import Footer from "./components/Footer";
@@ -19,28 +19,29 @@ function App() {
   const [editId, setEditId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [showClearAllModal, setShowClearAllModal] = useState(false);
+
 
   // ------------- api call ------------- //
-const API =
-  window.location.hostname === "localhost"
-    ? import.meta.env.VITE_API_URL_LOCAL
-    : import.meta.env.VITE_API_URL_PRO;
+  const API =
+    window.location.hostname === "localhost"
+      ? import.meta.env.VITE_API_URL_LOCAL
+      : import.meta.env.VITE_API_URL_PRO;
 
-
-  
   const colors = [
     { bg: "#F2FDFF", line: "#208597" },
     { bg: "#F4F1FF", line: "#7965C0" },
   ];
-function gettasks(){
-  axios.get(`${API}/`)
-      .then((res) => setTasks(()=>res.data))
+
+  function gettasks() {
+    axios.get(`${API}/`)
+      .then((res) => setTasks(() => res.data))
       .catch((err) => console.error("Fetch error:", err));
-}
+  }
   // READ - Get all todos
   useEffect(() => {
     gettasks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // CREATE or UPDATE task
@@ -102,6 +103,16 @@ function gettasks(){
     setShowDeleteModal(false);
   };
 
+  // Delete all tasks
+  const handleClearAll = () => {
+    axios.delete(`${API}/all`)
+      .then(() => {
+        setTasks([]);
+        gettasks();
+      })
+      .catch((err) => console.error("Failed to delete all tasks:", err));
+  };
+
   return (
     <>
       <Header />
@@ -112,6 +123,37 @@ function gettasks(){
             <span>Create Task</span>
           </button>
         </div>
+
+        {tasks.length > 2 && (
+          <div className="clear-all-container">
+            <button className="clear-all-btn" onClick={() => setShowClearAllModal(true)}>
+              <MdDelete className="add-icon" /> Clear All Tasks
+            </button>
+          </div>
+        )}
+
+        {showClearAllModal && (
+          <div className="modal-overlay">
+            <div className="modal delete-modal">
+              <span className="delete-icon"><img src={CmfDeleteIcon} /></span>
+              <h3 className="confirm-text">
+                <center>Are you sure you want to delete <b>all tasks</b>?</center>
+              </h3>
+              <div className="modal-buttons delete-btn-modal">
+                <button
+                  onClick={() => {
+                    handleClearAll();
+                    setShowClearAllModal(false);
+                  }}
+                  className="delete"
+                >
+                  Delete All
+                </button>
+                <button onClick={() => setShowClearAllModal(false)}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {showModal && (
           <div className="modal-overlay">
@@ -155,15 +197,15 @@ function gettasks(){
                 <p className="task-text">{item.title}</p>
                 <div className="action-buttons">
                   <button className="edit" onClick={() => handleEdit(item.id, item.title)}>
-                    <img src={EditIcon} /> 
+                    <img src={EditIcon} />
                   </button>
                   <button className="delete" onClick={() => handleDelete(item.id)}>
-                    <img src={DeleteIcon} /> 
-                  
+                    <img src={DeleteIcon} />
+
                   </button>
                 </div>
               </div>
-              )
+            )
           ))}
         </div>
 
